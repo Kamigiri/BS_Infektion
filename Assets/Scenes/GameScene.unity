@@ -167,8 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personPrefab: {fileID: 1434063937579611257, guid: be034c187d6efa847b061297df096aaa,
     type: 3}
-  infectedPersonPrefab: {fileID: 0}
-  amount: 100
+  infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
+    type: 3}
+  amount: 10
   infected: 3
 --- !u!1 &385153194
 GameObject:
@@ -254,7 +255,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.733028
+  orthographic size: 5.1335206
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
