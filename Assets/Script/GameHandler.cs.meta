@@ -3,7 +3,11 @@ guid: 6794782ef21818b4a925fa7e6a7aefe7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - personPrefab: {fileID: 1434063937579611257, guid: be034c187d6efa847b061297df096aaa,
+      type: 3}
+  - infectedPersonPrefab: {fileID: 1434063937579611257, guid: c7361a6df48e8ae48acf08131f8bd85a,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

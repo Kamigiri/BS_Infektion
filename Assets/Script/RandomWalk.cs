@@ -7,7 +7,7 @@ public class RandomWalk : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     public float accelerationTime = 0.1f;
-    public float maxSpeed = 0.3f;
+    public float maxSpeed = 0.1f;
     private Vector2 movement;
     private float timeLeft;
 

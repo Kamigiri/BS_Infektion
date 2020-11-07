@@ -167,7 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personPrefab: {fileID: 1434063937579611257, guid: be034c187d6efa847b061297df096aaa,
     type: 3}
-  anzahl: 25
+  infectedPersonPrefab: {fileID: 0}
+  amount: 100
+  infected: 3
 --- !u!1 &385153194
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,8 +339,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364760553}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.52, y: 2.49, z: -3.5234375}
-  m_LocalScale: {x: 36.154846, y: 15.669889, z: 7.3833485}
+  m_LocalPosition: {x: 0.969, y: 2.49, z: -3.5234375}
+  m_LocalScale: {x: 27.794325, y: 15.669889, z: 7.3833485}
   m_Children: []
   m_Father: {fileID: 385153195}
   m_RootOrder: 0
