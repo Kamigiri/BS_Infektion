@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ecab615a37a6945a4cf94d45acf07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i: 0
+  chance_of_infection: 100
+  personPrefab: {fileID: 1434063937579611257}
+  infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
+    type: 3}
 --- !u!114 &-1678518702305823772
 MonoBehaviour:
   m_ObjectHideFlags: 0
