@@ -7,7 +7,7 @@ public class boundaries : MonoBehaviour
 {
     private float minX, maxX, minY, maxY;
     private Rigidbody2D rb2d;
-    public float push = 5f;
+    public float push = 2.5f;
     private float objectWidth;
     private float objectHeight;
 
@@ -15,14 +15,12 @@ public class boundaries : MonoBehaviour
     {
         // If you want the min max values to update if the resolution changes 
         // set them in update else set them in Start
-        float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
-        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
 
-        minX = bottomCorner.x;
-        maxX = topCorner.x;
-        minY = bottomCorner.y;
-        maxY = topCorner.y;
+
+        minX = -15.08f;
+        maxX = 5.77f;
+        minY = -4.49f;
+        maxY = 8.37f;
         
 }
 

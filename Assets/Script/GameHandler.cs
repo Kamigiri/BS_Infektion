@@ -8,6 +8,7 @@ public class GameHandler : MonoBehaviour
     public GameObject infectedPersonPrefab;
     public int amount = 10;
     public int infected = 3;
+    private float minX, maxX, minY, maxY;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +17,19 @@ public class GameHandler : MonoBehaviour
         Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
         Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
 
+        minX = -15.08f;
+        maxX = 5.77f;
+        minY = -4.49f;
+        maxY = 8.37f;
+
         for (int i = 0; i < amount; i++)
         {
-            Instantiate(personPrefab, new Vector3(Random.Range(bottomCorner.x, 0), Random.Range(0, topCorner.y), 0), Quaternion.identity);
+            Instantiate(personPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
         }
         
         for (int i = 0; i < infected; i++)
         {
-            Instantiate(infectedPersonPrefab, new Vector3(Random.Range(bottomCorner.x, 0), Random.Range(0, topCorner.y), 0), Quaternion.identity);
+            Instantiate(infectedPersonPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
         }
     }
 

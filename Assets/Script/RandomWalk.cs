@@ -6,8 +6,8 @@ using UnityEngine;
 public class RandomWalk : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    public float accelerationTime = 0.1f;
-    public float maxSpeed = 0.1f;
+    public float accelerationTime = 0.5f;
+    public float maxSpeed = 5f;
     private Vector2 movement;
     private float timeLeft;
 
@@ -40,7 +40,7 @@ public class RandomWalk : MonoBehaviour
 
     public void MoveBitch(Vector2 movementVector)
     {
-        rb2d.AddForce(movementVector * maxSpeed / Time.deltaTime);
+        rb2d.AddForce(movementVector * maxSpeed);
     }
 
 }

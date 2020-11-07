@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1678518702305823772}
   - component: {fileID: 2051300533919983084}
   - component: {fileID: -4486249754916903170}
+  - component: {fileID: 918406445279833148}
   m_Layer: 0
   m_Name: person
   m_TagString: Untagged
@@ -97,8 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ecab615a37a6945a4cf94d45acf07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  i: 0
-  spr: {fileID: 0}
+  chance_of_infection: 100
+  personPrefab: {fileID: 1434063937579611257}
+  infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
+    type: 3}
 --- !u!114 &-1678518702305823772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc83ad9dff6c74844a140af45e3d55c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationTime: 0.1
-  maxSpeed: 0.1
+  accelerationTime: 2
+  maxSpeed: 5
 --- !u!114 &2051300533919983084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286324a729f78ad4d93c8e7d727683dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  push: 5
+  push: 2.5
 --- !u!50 &-4486249754916903170
 Rigidbody2D:
   serializedVersion: 4
@@ -145,5 +148,21 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!58 &918406445279833148
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434063937579611257}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.28809524
