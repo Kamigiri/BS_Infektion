@@ -11,6 +11,7 @@ public class Person : MonoBehaviour
     public GameObject infectedPersonPrefab;
     public GameObject recoveredPersonPrefab;
     public int infectedTime = 0;
+    private int nextUpdate = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +22,10 @@ public class Person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.infectedTime > 0)
+        if (Time.time >= nextUpdate)
         {
-            this.infectedTime++;
-        }
-
-        if (this.infectedTime == 5000)
-        {
-            this.infectedTime = 0;
-            Instantiate(recoveredPersonPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-            Destroy(this.gameObject);
+            nextUpdate=Mathf.FloorToInt(Time.time)+1;
+            UpdateEverySecond();
         }
     }
 
@@ -50,6 +45,21 @@ public class Person : MonoBehaviour
                 Destroy(this.gameObject);
             }     
             
+        }
+    }
+
+    void UpdateEverySecond()
+    {
+        if (infectedTime > 0)
+        {
+            infectedTime++;
+        }
+
+        if (infectedTime == 15)
+        {
+            infectedTime = 0;
+            Instantiate(recoveredPersonPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }
