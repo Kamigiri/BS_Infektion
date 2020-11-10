@@ -9,6 +9,8 @@ public class Person : MonoBehaviour
     private SpriteRenderer spr;
     public GameObject personPrefab;
     public GameObject infectedPersonPrefab;
+    public GameObject recoveredPersonPrefab;
+    public int infectedTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,17 @@ public class Person : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (this.infectedTime > 0)
+        {
+            this.infectedTime++;
+        }
+
+        if (this.infectedTime == 5000)
+        {
+            this.infectedTime = 0;
+            Instantiate(recoveredPersonPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+            Destroy(this.gameObject);
+        }
     }
 
     [System.Obsolete]
@@ -32,7 +44,9 @@ public class Person : MonoBehaviour
 
             if (infection_chance <= chance_of_infection)
             {
-                Instantiate(infectedPersonPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                Person person = infectedPerson.GetComponent<Person>();
+                person.infectedTime = 1;
                 Destroy(this.gameObject);
             }     
             
