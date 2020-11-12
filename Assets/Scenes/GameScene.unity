@@ -169,7 +169,7 @@ MonoBehaviour:
     type: 3}
   infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
     type: 3}
-  amount: 10
+  amount: 30
   infected: 3
 --- !u!1 &385153194
 GameObject:
