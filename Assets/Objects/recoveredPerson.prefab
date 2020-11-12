@@ -104,6 +104,7 @@ MonoBehaviour:
   infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
     type: 3}
   recoveredPersonPrefab: {fileID: 1434063937579611257}
+  infectedTime: 0
 --- !u!114 &-1678518702305823772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc83ad9dff6c74844a140af45e3d55c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationTime: 2
+  accelerationTime: 1
   maxSpeed: 5
 --- !u!114 &2051300533919983084
 MonoBehaviour:
