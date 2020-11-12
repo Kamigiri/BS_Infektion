@@ -16,7 +16,7 @@ public class Person : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spr = this.GetComponent<SpriteRenderer>();
+        spr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -33,16 +33,16 @@ public class Person : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
 
-        if (coll.gameObject.name == "infectedPerson(Clone)" && this.gameObject.name == "person(Clone)")
+        if (coll.gameObject.name == "infectedPerson(Clone)" && gameObject.name == "person(Clone)")
         {
             int infection_chance = Random.RandomRange(0, 100);
 
             if (infection_chance <= chance_of_infection)
             {
-                GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
                 Person person = infectedPerson.GetComponent<Person>();
                 person.infectedTime = 1;
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }     
             
         }
