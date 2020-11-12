@@ -29,7 +29,9 @@ public class GameHandler : MonoBehaviour
         
         for (int i = 0; i < infected; i++)
         {
-            Instantiate(infectedPersonPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
+            GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
+            Person person = infectedPerson.GetComponent<Person>();
+            person.infectedTime = 1;
         }
     }
 

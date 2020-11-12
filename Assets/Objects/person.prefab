@@ -102,6 +102,8 @@ MonoBehaviour:
   personPrefab: {fileID: 1434063937579611257}
   infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
     type: 3}
+  recoveredPersonPrefab: {fileID: 1434063937579611257, guid: b7f79dc5df467cf4f815299a7aa94573,
+    type: 3}
 --- !u!114 &-1678518702305823772
 MonoBehaviour:
   m_ObjectHideFlags: 0
