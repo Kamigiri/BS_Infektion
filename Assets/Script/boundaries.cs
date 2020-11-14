@@ -16,10 +16,10 @@ public class boundaries : MonoBehaviour
         // set them in update else set them in Start
 
 
-        minX = -15.08f;
-        maxX = 5.77f;
-        minY = -4.49f;
-        maxY = 8.37f;
+        minX = -30f;
+        maxX = 20f;
+        minY = -20f;
+        maxY = 10.5f;
         
 }
 
