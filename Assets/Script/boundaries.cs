@@ -6,8 +6,7 @@ using UnityEngine;
 public class boundaries : MonoBehaviour
 {
     private float minX, maxX, minY, maxY;
-    private Rigidbody2D rb2d;
-    public float push = 2.5f;
+    public float push = 2f;
     private float objectWidth;
     private float objectHeight;
 
@@ -17,14 +16,14 @@ public class boundaries : MonoBehaviour
         // set them in update else set them in Start
 
 
-        minX = -15.08f;
-        maxX = 5.77f;
-        minY = -4.49f;
-        maxY = 8.37f;
+        minX = -30f;
+        maxX = 20f;
+        minY = -20f;
+        maxY = 10.5f;
         
 }
 
-    void Update()
+    void FixedUpdate()
     {
 
         // Get current position
@@ -37,25 +36,25 @@ public class boundaries : MonoBehaviour
         {
             
             pos.x = minX + objectWidth;
-            GetComponent<RandomWalk>().MoveBitch(new Vector2(push, 0f));
+            GetComponent<RandomWalk>().Move(new Vector2(push, 0f));
         }
 
         if (pos.x > maxX - objectWidth)
         {
             pos.x = maxX - objectWidth;
-            GetComponent<RandomWalk>().MoveBitch(new Vector2(push * -1f, 0f));
+            GetComponent<RandomWalk>().Move(new Vector2(push * -1f, 0f));
         }
 
         // vertical contraint
         if (pos.y < minY + objectHeight)
         {
             pos.y = minY + objectHeight;
-            GetComponent<RandomWalk>().MoveBitch(new Vector2(0f, push));
+            GetComponent<RandomWalk>().Move(new Vector2(0f, push));
         }
         if (pos.y > maxY - objectHeight)
         {
             pos.y = maxY - objectHeight;
-            GetComponent<RandomWalk>().MoveBitch(new Vector2(0f, push * -1));
+            GetComponent<RandomWalk>().Move(new Vector2(0f, push * -1));
         }
 
             // Update position

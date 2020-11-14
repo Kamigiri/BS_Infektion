@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2051300533919983084}
   - component: {fileID: -4486249754916903170}
   - component: {fileID: 918406445279833148}
+  - component: {fileID: -4856041600420473661}
   m_Layer: 0
   m_Name: recoveredPerson
   m_TagString: Untagged
@@ -98,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ecab615a37a6945a4cf94d45acf07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chance_of_infection: 0
   personPrefab: {fileID: 1434063937579611257, guid: be034c187d6efa847b061297df096aaa,
     type: 3}
   infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc83ad9dff6c74844a140af45e3d55c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationTime: 1
-  maxSpeed: 5
+  accelerationTime: 0.06
+  speed: 10
 --- !u!114 &2051300533919983084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286324a729f78ad4d93c8e7d727683dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  push: 2.5
+  push: 2
 --- !u!50 &-4486249754916903170
 Rigidbody2D:
   serializedVersion: 4
@@ -169,3 +169,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.28809524
+--- !u!114 &-4856041600420473661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434063937579611257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc83ad9dff6c74844a140af45e3d55c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accelerationTime: 0.06
+  speed: 10
