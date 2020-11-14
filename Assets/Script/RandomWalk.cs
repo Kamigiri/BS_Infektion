@@ -39,8 +39,6 @@ public class RandomWalk : MonoBehaviour
     {
         float radAgnle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
         Vector2 vecRnd = new Vector2(Mathf.Cos(radAgnle), Mathf.Sin(radAgnle));
-        Debug.Log("Start");
-        Debug.Log(vecRnd.ToString());
         return vecRnd;
         
     }

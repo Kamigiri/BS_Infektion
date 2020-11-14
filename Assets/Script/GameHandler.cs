@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameHandler : MonoBehaviour
     public int amount = 10;
     public int infected = 3;
     private float minX, maxX, minY, maxY;
+    private bool isGameActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,22 +24,44 @@ public class GameHandler : MonoBehaviour
         minY = -4.49f;
         maxY = 8.37f;
 
+
+       
+    }
+
+    public void PauseTheGame()
+    {
+        bool currentGameStatus = isGameActive;
+
+        if (currentGameStatus)
+        {
+            Time.timeScale = 0;
+            isGameActive = false;
+        } else if (!currentGameStatus)
+        {
+            Time.timeScale = 1;
+            isGameActive = true;
+        }
+
+    }
+
+   public void StopTheGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartTheGame()
+    {
+        isGameActive = true;
         for (int i = 0; i < amount; i++)
         {
             Instantiate(personPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
         }
-        
+
         for (int i = 0; i < infected; i++)
         {
             GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
             Person person = infectedPerson.GetComponent<Person>();
             person.infectedTime = 1;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
