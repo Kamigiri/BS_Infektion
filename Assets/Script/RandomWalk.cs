@@ -6,9 +6,8 @@ using UnityEngine;
 public class RandomWalk : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    public float accelerationTime = 0.5f;
-    public float maxSpeed = 5f;
-    private Vector2 movement;
+    public float accelerationTime = 0.06f;
+    public float speed = 10f;
     private float timeLeft;
 
     // Start is called before the first frame update
@@ -18,29 +17,32 @@ public class RandomWalk : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void FixedUpdate()
     {
         timeLeft -= Time.deltaTime;
-        if(timeLeft <= 0)
+        if (timeLeft <= 0)
         {
-            timeLeft+= accelerationTime;
-            Vector3 currentPosition = transform.position;
-
-            movement = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+            timeLeft += accelerationTime;
+            Move(RandomVector());
 
         }
         
     }
 
-    void FixedUpdate()
+    public void Move(Vector2 movementVector)
     {
-        MoveBitch(movement);
+        rb2d.AddForce(movementVector * speed);
     }
 
-    public void MoveBitch(Vector2 movementVector)
+    private Vector2 RandomVector()
     {
-        rb2d.AddForce(movementVector * maxSpeed);
+        float radAgnle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
+        Vector2 vecRnd = new Vector2(Mathf.Cos(radAgnle), Mathf.Sin(radAgnle));
+        Debug.Log("Start");
+        Debug.Log(vecRnd.ToString());
+        return vecRnd;
+        
     }
 
 }
