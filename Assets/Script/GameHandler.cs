@@ -8,6 +8,7 @@ public class GameHandler : MonoBehaviour
 {
     public GameObject personPrefab;
     public GameObject infectedPersonPrefab;
+    public GameObject recoverdPersonPrefab;
     public int amount = 10;
     public int infected = 3;
     public int timer = 20;
@@ -15,6 +16,8 @@ public class GameHandler : MonoBehaviour
     public Text infectedPersonTxt;
     public Text recoveredPersonTxT;
     public Text timerTxT;
+    public Text rndWalkTxT;
+    public bool useAlternateRndWalk = false;
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
@@ -32,6 +35,10 @@ public class GameHandler : MonoBehaviour
         minY = -20f;
         maxY = 10.5f;
 
+        switchRandomWalkLabel();
+
+
+
     }
 
     void Update()
@@ -45,6 +52,8 @@ public class GameHandler : MonoBehaviour
 
         if (seconds >= timer)
             EndTheGame();
+
+        checkForRandomWalk();
     }
 
     private void UpdateLabels()
@@ -68,11 +77,35 @@ public class GameHandler : MonoBehaviour
             }
 
         }
+
+        if (useAlternateRndWalk)
+            rndWalkTxT.text = "Wiggly Walk";
+        else
+            rndWalkTxT.text = "Smooth Walk";
+
         personTxt.text = "Personen: " + personCounter;
         infectedPersonTxt.text = "Infenzierte Personen: " + infectedPersonCounter;
         recoveredPersonTxT.text = "Erholte Personen: " + recoveredPersonCounter;
         timerTxT.text = "Verbleibende Zeit: " + (timer - seconds);
 
+    }
+
+    public void switchRandomWalk()
+    {
+        if (useAlternateRndWalk)
+            useAlternateRndWalk = false;
+        else
+            useAlternateRndWalk = true;
+
+        switchRandomWalkLabel();
+    }
+
+    public void switchRandomWalkLabel()
+    {
+        if (useAlternateRndWalk)
+            rndWalkTxT.text = "Wiggly Walk";
+        else
+            rndWalkTxT.text = "Smooth Walk";
     }
 
     public void PauseTheGame()
@@ -104,6 +137,7 @@ public class GameHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+
         if(!isGameActive)
         {
             for (int i = 0; i < amount; i++)
@@ -119,8 +153,59 @@ public class GameHandler : MonoBehaviour
             }
             Time.timeScale = 1;
             isGameActive = true;
+            hideUi();
         }
         
         
+    }
+
+    public void hideUi()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("invisibleWhilePlaying");
+
+        foreach (GameObject item in objects)
+        {
+            item.SetActive(false);
+        }
+    }
+
+    public void checkForRandomWalk()
+    {
+        if (useAlternateRndWalk)
+        {
+            personPrefab.GetComponent<RandomWalk>().enabled = false;
+            infectedPersonPrefab.GetComponent<RandomWalk>().enabled = false;
+            recoverdPersonPrefab.GetComponent<RandomWalk>().enabled = false;
+
+            personPrefab.GetComponent<boundaries>().enabled = false;
+            infectedPersonPrefab.GetComponent<boundaries>().enabled = false;
+            recoverdPersonPrefab.GetComponent<boundaries>().enabled = false;
+
+            personPrefab.GetComponent<RandomWalkv2>().enabled = true;
+            infectedPersonPrefab.GetComponent<RandomWalkv2>().enabled = true;
+            recoverdPersonPrefab.GetComponent<RandomWalkv2>().enabled = true;
+
+            personPrefab.GetComponent<boundariesv2>().enabled = true;
+            infectedPersonPrefab.GetComponent<boundariesv2>().enabled = true;
+            recoverdPersonPrefab.GetComponent<boundariesv2>().enabled = true;
+        }
+        else
+        {
+            personPrefab.GetComponent<RandomWalk>().enabled = true;
+            infectedPersonPrefab.GetComponent<RandomWalk>().enabled = true;
+            recoverdPersonPrefab.GetComponent<RandomWalk>().enabled = true;
+
+            personPrefab.GetComponent<boundaries>().enabled = true;
+            infectedPersonPrefab.GetComponent<boundaries>().enabled = true;
+            recoverdPersonPrefab.GetComponent<boundaries>().enabled = true;
+
+            personPrefab.GetComponent<RandomWalkv2>().enabled = false;
+            infectedPersonPrefab.GetComponent<RandomWalkv2>().enabled = false;
+            recoverdPersonPrefab.GetComponent<RandomWalkv2>().enabled = false;
+
+            personPrefab.GetComponent<boundariesv2>().enabled = false;
+            infectedPersonPrefab.GetComponent<boundariesv2>().enabled = false;
+            recoverdPersonPrefab.GetComponent<boundariesv2>().enabled = false;
+        }
     }
 }
