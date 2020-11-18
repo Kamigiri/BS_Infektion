@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: -4486249754916903170}
   - component: {fileID: 918406445279833148}
   - component: {fileID: -4856041600420473661}
+  - component: {fileID: -1158673089450075951}
+  - component: {fileID: 4801354633825662629}
   m_Layer: 0
   m_Name: recoveredPerson
   m_TagString: Untagged
@@ -183,3 +185,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accelerationTime: 0.06
   speed: 10
+--- !u!114 &-1158673089450075951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434063937579611257}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb2282895739ce42a73b97e0dc7c171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4801354633825662629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434063937579611257}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2537c40b30685746b038a83954a2966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -169,6 +169,8 @@ MonoBehaviour:
     type: 3}
   infectedPersonPrefab: {fileID: 1434063937579611257, guid: 834a1b961cd7af542881ea00f59cabe5,
     type: 3}
+  recoverdPersonPrefab: {fileID: 1434063937579611257, guid: 0422df19bc575d44bb1525ee03bf8573,
+    type: 3}
   amount: 100
   infected: 25
   timer: 20
@@ -176,6 +178,7 @@ MonoBehaviour:
   infectedPersonTxt: {fileID: 921450797}
   recoveredPersonTxT: {fileID: 2060053826}
   timerTxT: {fileID: 1620685716}
+  useAlternateRndWalk: 0
 --- !u!1 &179765179
 GameObject:
   m_ObjectHideFlags: 0
