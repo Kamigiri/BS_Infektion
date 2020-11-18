@@ -16,6 +16,7 @@ public class GameHandler : MonoBehaviour
     public Text infectedPersonTxt;
     public Text recoveredPersonTxT;
     public Text timerTxT;
+    public Text rndWalkTxT;
     public bool useAlternateRndWalk = false;
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
@@ -33,6 +34,10 @@ public class GameHandler : MonoBehaviour
         maxX = 20f;
         minY = -20f;
         maxY = 10.5f;
+
+        switchRandomWalkLabel();
+
+
 
     }
 
@@ -72,11 +77,35 @@ public class GameHandler : MonoBehaviour
             }
 
         }
+
+        if (useAlternateRndWalk)
+            rndWalkTxT.text = "Wiggly Walk";
+        else
+            rndWalkTxT.text = "Smooth Walk";
+
         personTxt.text = "Personen: " + personCounter;
         infectedPersonTxt.text = "Infenzierte Personen: " + infectedPersonCounter;
         recoveredPersonTxT.text = "Erholte Personen: " + recoveredPersonCounter;
         timerTxT.text = "Verbleibende Zeit: " + (timer - seconds);
 
+    }
+
+    public void switchRandomWalk()
+    {
+        if (useAlternateRndWalk)
+            useAlternateRndWalk = false;
+        else
+            useAlternateRndWalk = true;
+
+        switchRandomWalkLabel();
+    }
+
+    public void switchRandomWalkLabel()
+    {
+        if (useAlternateRndWalk)
+            rndWalkTxT.text = "Wiggly Walk";
+        else
+            rndWalkTxT.text = "Smooth Walk";
     }
 
     public void PauseTheGame()
@@ -108,6 +137,7 @@ public class GameHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+
         if(!isGameActive)
         {
             for (int i = 0; i < amount; i++)
@@ -123,9 +153,20 @@ public class GameHandler : MonoBehaviour
             }
             Time.timeScale = 1;
             isGameActive = true;
+            hideUi();
         }
         
         
+    }
+
+    public void hideUi()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("invisibleWhilePlaying");
+
+        foreach (GameObject item in objects)
+        {
+            item.SetActive(false);
+        }
     }
 
     public void checkForRandomWalk()
