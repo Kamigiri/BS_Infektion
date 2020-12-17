@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomWalkv2 : MonoBehaviour
 {
 
-    private int mSpeed = 10;
+    public int mSpeed = 200;
     // Start is called before the first frame update
     void Start()
     {

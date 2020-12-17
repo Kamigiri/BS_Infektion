@@ -17,25 +17,28 @@ public class GameHandler : MonoBehaviour
     public Text recoveredPersonTxT;
     public Text timerTxT;
     public Text rndWalkTxT;
+    public Text speedTxT;
     public bool useAlternateRndWalk = false;
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
     private int seconds;
+    private Slider speedSlider;
+    int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+    private List<Dictionary<string, int>> exportList = new List<Dictionary<string, int>>();
 
     // Start is called before the first frame update
     void Start()
     {
-        float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
-        Vector2 bottomCorner = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
-        Vector2 topCorner = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
-
         minX = -30f;
         maxX = 20f;
         minY = -20f;
         maxY = 10.5f;
+        speedSlider = GameObject.Find("SpeedSlider").GetComponent<Slider>();
 
-        switchRandomWalkLabel();
+        speedTxT.text = "Speed: " + speedSlider.value;
+
+        SwitchRandomWalkLabel();
 
 
 
@@ -43,25 +46,32 @@ public class GameHandler : MonoBehaviour
 
     void Update()
     {
-        if(isGameActive && !isGamePaused)
+        if (isGameActive && !isGamePaused)
         {
             gameTimer += Time.deltaTime;
             seconds = System.Convert.ToInt32(gameTimer % 60);
-            UpdateLabels();
-        }
+            PersonCounter();
+                }
+
+        UpdateLabels();
 
         if (seconds >= timer)
             EndTheGame();
 
-        checkForRandomWalk();
+        CheckForRandomWalk();
     }
 
-    private void UpdateLabels()
+    private void PersonCounter()
     {
-        int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+        Dictionary<string, int> currentData =
+           new Dictionary<string, int>
+           {
+            { "Zyklus", seconds }
+           };
+
         GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach(GameObject person in allPersons)
+        foreach (GameObject person in allPersons)
         {
             switch (person.name.ToString())
             {
@@ -69,7 +79,7 @@ public class GameHandler : MonoBehaviour
                     personCounter++;
                     break;
                 case "infectedPerson(Clone)":
-                    infectedPersonCounter++;
+                    infectedPersonCounter++;                
                     break;
                 case "recoveredPerson(Clone)":
                     recoveredPersonCounter++;
@@ -77,6 +87,13 @@ public class GameHandler : MonoBehaviour
             }
 
         }
+        currentData.Add("Personen", personCounter);
+        currentData.Add("Infected", infectedPersonCounter);
+        this.exportList.Add(currentData);
+    }
+
+    private void UpdateLabels()
+    {
 
         if (useAlternateRndWalk)
             rndWalkTxT.text = "Wiggly Walk";
@@ -87,21 +104,23 @@ public class GameHandler : MonoBehaviour
         infectedPersonTxt.text = "Infenzierte Personen: " + infectedPersonCounter;
         recoveredPersonTxT.text = "Erholte Personen: " + recoveredPersonCounter;
         timerTxT.text = "Verbleibende Zeit: " + (timer - seconds);
+        speedTxT.text = "Speed: " + speedSlider.value;
 
     }
 
-    public void switchRandomWalk()
+    public void SwitchRandomWalk()
     {
         if (useAlternateRndWalk)
             useAlternateRndWalk = false;
         else
             useAlternateRndWalk = true;
 
-        switchRandomWalkLabel();
+       SwitchRandomWalkLabel();
     }
 
-    public void switchRandomWalkLabel()
+    public void SwitchRandomWalkLabel()
     {
+
         if (useAlternateRndWalk)
             rndWalkTxT.text = "Wiggly Walk";
         else
@@ -128,6 +147,8 @@ public class GameHandler : MonoBehaviour
     {
         Time.timeScale = 0;
         isGameActive = false;
+        foreach (Dictionary<string, int> item in exportList)
+            Debug.Log(item);
     }
 
    public void StopTheGame()
@@ -153,13 +174,13 @@ public class GameHandler : MonoBehaviour
             }
             Time.timeScale = 1;
             isGameActive = true;
-            hideUi();
+            HideUi();
         }
         
         
     }
 
-    public void hideUi()
+    public void HideUi()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("invisibleWhilePlaying");
 
@@ -169,7 +190,7 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    public void checkForRandomWalk()
+    public void CheckForRandomWalk()
     {
         if (useAlternateRndWalk)
         {
