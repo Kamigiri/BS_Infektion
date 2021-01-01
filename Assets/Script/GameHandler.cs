@@ -6,28 +6,33 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
+    //Objects
     public GameObject personPrefab;
     public GameObject infectedPersonPrefab;
     public GameObject recoverdPersonPrefab;
-    public int amount = 10;
-    public int infected = 3;
-    public int timer = 20;
+
+    //UI
     public Text personTxt;
     public Text infectedPersonTxt;
     public Text recoveredPersonTxT;
     public Text timerTxT;
     public Text rndWalkTxT;
     public Text speedTxT;
+    public InputField personSum;
+    public InputField duration;
+    private Slider speedSlider;
+
+    //GameLogic
     public bool useAlternateRndWalk = false;
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
-    private int seconds;
-    private Slider speedSlider;
+    private int seconds, timer;
     int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+
+    //Export
     private List<Dictionary<string, int>> exportList = new List<Dictionary<string, int>>();
 
-    // Start is called before the first frame update
     void Start()
     {
         minX = -30f;
@@ -35,7 +40,7 @@ public class GameHandler : MonoBehaviour
         minY = -20f;
         maxY = 10.5f;
         speedSlider = GameObject.Find("SpeedSlider").GetComponent<Slider>();
-
+        timer = System.Convert.ToInt32(duration.text);
         speedTxT.text = "Speed: " + speedSlider.value;
 
         SwitchRandomWalkLabel();
@@ -70,6 +75,10 @@ public class GameHandler : MonoBehaviour
            };
 
         GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
+        personCounter = 0;
+        infectedPersonCounter = 0;
+        recoveredPersonCounter = 0;
+
 
         foreach (GameObject person in allPersons)
         {
@@ -101,7 +110,7 @@ public class GameHandler : MonoBehaviour
             rndWalkTxT.text = "Smooth Walk";
 
         personTxt.text = "Personen: " + personCounter;
-        infectedPersonTxt.text = "Infenzierte Personen: " + infectedPersonCounter;
+        infectedPersonTxt.text = "Infizierte Personen: " + infectedPersonCounter;
         recoveredPersonTxT.text = "Erholte Personen: " + recoveredPersonCounter;
         timerTxT.text = "Verbleibende Zeit: " + (timer - seconds);
         speedTxT.text = "Speed: " + speedSlider.value;
@@ -161,10 +170,12 @@ public class GameHandler : MonoBehaviour
 
         if(!isGameActive)
         {
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < System.Convert.ToInt32(personSum.text); i++)
             {
                 Instantiate(personPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
             }
+
+            int infected = Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
 
             for (int i = 0; i < infected; i++)
             {

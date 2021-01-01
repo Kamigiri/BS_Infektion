@@ -8,8 +8,9 @@ public class RandomWalk : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     public float accelerationTime = 0.06f;
-    private float timeLeft;
+    private float gameTimer;
     private float speed;
+    private int seconds;
 
     private Slider speedSlider;
 
@@ -26,12 +27,13 @@ public class RandomWalk : MonoBehaviour
 
     void FixedUpdate()
     {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0)
+        gameTimer += Time.deltaTime;
+        seconds = System.Convert.ToInt32(gameTimer % 60);
+        if (seconds >= 1)
         {
-            timeLeft += accelerationTime;
             Move(RandomVector());
-
+            seconds = 0;
+            gameTimer = 0f;
         }
         
     }
@@ -53,5 +55,7 @@ public class RandomWalk : MonoBehaviour
         return vecRnd;
         
     }
+
+
 
 }
