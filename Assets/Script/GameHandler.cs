@@ -12,16 +12,18 @@ public class GameHandler : MonoBehaviour
     public GameObject recoverdPersonPrefab;
 
     //UI
-    public  Text personTxt;
-    public  Text infectedPersonTxt;
-    public  Text recoveredPersonTxT;
-    public  Text timerTxT;
-    public  Text rndWalkTxT;
-    public  InputField personSum;
-    public  InputField duration;
+    public Text personTxt;
+    public Text infectedPersonTxt;
+    public Text recoveredPersonTxT;
+    public Text timerTxT;
+    public Text rndWalkTxT;
+
+    public Toggle customExport;
+
+    public InputField customFilePath;
+    public InputField personSum;
+    public InputField duration;
     public InputField speed;
-    
-   
 
     //GameLogic
     public bool useAlternateRndWalk = false;
@@ -29,11 +31,12 @@ public class GameHandler : MonoBehaviour
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
-    private int seconds;
-    public static  int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+    private int seconds, second;
+    public static int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
 
     //Export
-    private List<Dictionary<string, int>> exportList = new List<Dictionary<string, int>>();
+    private List<string> data = new List<string>();
+
 
     private void Start()
     {
@@ -41,6 +44,7 @@ public class GameHandler : MonoBehaviour
         maxX = 36.44f;
         minY = -25.69f;
         maxY = 10.11f;
+        data.Add("Zyklus, Gesunde_Personen, Erkrankte_Personen, Genesene_Personen");
 
         SwitchRandomWalkLabel();
     }
@@ -51,9 +55,8 @@ public class GameHandler : MonoBehaviour
         {
             gameTimer += Time.deltaTime;
             seconds = System.Convert.ToInt32(gameTimer % 60);
-            //TODO nur jede Sekunde nicht jeden Frame
-            PersonCounter();
-            GetComponent<Graph>().buildGraph(seconds);
+
+            //GetComponent<Graph>().buildGraph(seconds);
 
             if (seconds >= System.Convert.ToInt32(duration.text))
                 EndTheGame();
@@ -63,40 +66,7 @@ public class GameHandler : MonoBehaviour
         CheckForRandomWalk();
     }
 
-    private void PersonCounter()
-    {
-        Dictionary<string, int> currentData =
-           new Dictionary<string, int>
-           {
-            { "Zyklus", seconds }
-           };
-
-        GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
-        personCounter = 0;
-        infectedPersonCounter = 0;
-        recoveredPersonCounter = 0;
-
-        foreach (GameObject person in allPersons)
-        {
-            switch (person.name.ToString())
-            {
-                case "person(Clone)":
-                    personCounter++;
-                    break;
-
-                case "infectedPerson(Clone)":
-                    infectedPersonCounter++;
-                    break;
-
-                case "recoveredPerson(Clone)":
-                    recoveredPersonCounter++;
-                    break;
-            }
-        }
-        currentData.Add("Personen", personCounter);
-        currentData.Add("Infected", infectedPersonCounter);
-        this.exportList.Add(currentData);
-    }
+   
 
     private void UpdateLabels()
     {
@@ -147,8 +117,10 @@ public class GameHandler : MonoBehaviour
         Time.timeScale = 0;
         isGameActive = false;
         //export to Excel
-        foreach (Dictionary<string, int> item in exportList)
-            Debug.Log(item);
+        if(customExport.isOn)
+            ExportData.exportData(data, customFilePath.text);
+        else
+            ExportData.exportData(data, @"Excel\report.csv");
     }
 
     public void StopTheGame()
@@ -177,7 +149,36 @@ public class GameHandler : MonoBehaviour
             Time.timeScale = 1;
             isGameActive = true;
             HideUi();
+            InvokeRepeating("PersonCounter", 0f, 1f);
         }
+    }
+     void PersonCounter()
+    {
+        GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
+        personCounter = 0;
+        infectedPersonCounter = 0;
+        recoveredPersonCounter = 0;
+
+        foreach (GameObject person in allPersons)
+        {
+            switch (person.name.ToString())
+            {
+                case "person(Clone)":
+                    personCounter++;
+                    break;
+
+                case "infectedPerson(Clone)":
+                    infectedPersonCounter++;
+                    break;
+
+                case "recoveredPerson(Clone)":
+                    recoveredPersonCounter++;
+                    break;
+            }
+        }
+
+        string row = System.String.Format("{0},{1},{2},{3}", seconds + 1, personCounter, infectedPersonCounter, recoveredPersonCounter);
+        data.Add(row);
     }
 
     public void HideUi()
@@ -189,6 +190,7 @@ public class GameHandler : MonoBehaviour
             item.SetActive(false);
         }
     }
+
 
     public void CheckForRandomWalk()
     {
