@@ -20,6 +20,7 @@ public class GameHandler : MonoBehaviour
     public InputField personSum;
     public InputField duration;
     public InputField speed;
+    
    
 
     //GameLogic
@@ -36,10 +37,10 @@ public class GameHandler : MonoBehaviour
 
     private void Start()
     {
-        minX = -36.2f;
-        maxX = 34.1f;
-        minY = -26.1f;
-        maxY = 9.7f;
+        minX = -43.77f;
+        maxX = 36.44f;
+        minY = -25.69f;
+        maxY = 10.11f;
 
         SwitchRandomWalkLabel();
     }
