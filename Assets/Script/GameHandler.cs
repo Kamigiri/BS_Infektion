@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +7,7 @@ public class GameHandler : MonoBehaviour
 {
     //Objects
     public GameObject personPrefab;
+
     public GameObject infectedPersonPrefab;
     public GameObject recoverdPersonPrefab;
 
@@ -17,52 +17,47 @@ public class GameHandler : MonoBehaviour
     public Text recoveredPersonTxT;
     public Text timerTxT;
     public Text rndWalkTxT;
-    public Text speedTxT;
     public InputField personSum;
     public InputField duration;
-    private Slider speedSlider;
+    public InputField speed;
+   
 
     //GameLogic
     public bool useAlternateRndWalk = false;
+
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
-    private int seconds, timer;
-    int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+    private int seconds;
+    private int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
 
     //Export
     private List<Dictionary<string, int>> exportList = new List<Dictionary<string, int>>();
 
-    void Start()
+    private void Start()
     {
-        minX = -30f;
-        maxX = 20f;
-        minY = -20f;
-        maxY = 10.5f;
-        speedSlider = GameObject.Find("SpeedSlider").GetComponent<Slider>();
-        timer = System.Convert.ToInt32(duration.text);
-        speedTxT.text = "Speed: " + speedSlider.value;
+        minX = -36.2f;
+        maxX = 34.1f;
+        minY = -26.1f;
+        maxY = 9.7f;
 
         SwitchRandomWalkLabel();
-
-
-
     }
 
-    void Update()
+    private void Update()
     {
         if (isGameActive && !isGamePaused)
         {
             gameTimer += Time.deltaTime;
             seconds = System.Convert.ToInt32(gameTimer % 60);
+            //TODO nur jede Sekunde nicht jeden Frame
             PersonCounter();
-                }
+
+            if (seconds >= System.Convert.ToInt32(duration.text))
+                EndTheGame();
+        }
 
         UpdateLabels();
-
-        if (seconds >= timer)
-            EndTheGame();
-
         CheckForRandomWalk();
     }
 
@@ -79,7 +74,6 @@ public class GameHandler : MonoBehaviour
         infectedPersonCounter = 0;
         recoveredPersonCounter = 0;
 
-
         foreach (GameObject person in allPersons)
         {
             switch (person.name.ToString())
@@ -87,14 +81,15 @@ public class GameHandler : MonoBehaviour
                 case "person(Clone)":
                     personCounter++;
                     break;
+
                 case "infectedPerson(Clone)":
-                    infectedPersonCounter++;                
+                    infectedPersonCounter++;
                     break;
+
                 case "recoveredPerson(Clone)":
                     recoveredPersonCounter++;
                     break;
             }
-
         }
         currentData.Add("Personen", personCounter);
         currentData.Add("Infected", infectedPersonCounter);
@@ -103,18 +98,12 @@ public class GameHandler : MonoBehaviour
 
     private void UpdateLabels()
     {
-
-        if (useAlternateRndWalk)
-            rndWalkTxT.text = "Wiggly Walk";
-        else
-            rndWalkTxT.text = "Smooth Walk";
+        SwitchRandomWalkLabel();
 
         personTxt.text = "Personen: " + personCounter;
         infectedPersonTxt.text = "Infizierte Personen: " + infectedPersonCounter;
         recoveredPersonTxT.text = "Erholte Personen: " + recoveredPersonCounter;
-        timerTxT.text = "Verbleibende Zeit: " + (timer - seconds);
-        speedTxT.text = "Speed: " + speedSlider.value;
-
+        timerTxT.text = "Verbleibende Zeit: " + (System.Convert.ToInt32(duration.text) - seconds);
     }
 
     public void SwitchRandomWalk()
@@ -124,16 +113,15 @@ public class GameHandler : MonoBehaviour
         else
             useAlternateRndWalk = true;
 
-       SwitchRandomWalkLabel();
+        SwitchRandomWalkLabel();
     }
 
     public void SwitchRandomWalkLabel()
     {
-
         if (useAlternateRndWalk)
-            rndWalkTxT.text = "Wiggly Walk";
+            rndWalkTxT.text = "Klassisch";
         else
-            rndWalkTxT.text = "Smooth Walk";
+            rndWalkTxT.text = "Smooth";
     }
 
     public void PauseTheGame()
@@ -144,38 +132,39 @@ public class GameHandler : MonoBehaviour
         {
             Time.timeScale = 0;
             isGamePaused = true;
-        } else if (currentGameStatus && isGameActive)
+        }
+        else if (currentGameStatus && isGameActive)
         {
             Time.timeScale = 1;
             isGamePaused = false;
         }
-
     }
 
     public void EndTheGame()
     {
         Time.timeScale = 0;
         isGameActive = false;
+        //export to Excel
         foreach (Dictionary<string, int> item in exportList)
             Debug.Log(item);
     }
 
-   public void StopTheGame()
+    public void StopTheGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void StartTheGame()
     {
-
-        if(!isGameActive)
+        if (!isGameActive)
         {
-            for (int i = 0; i < System.Convert.ToInt32(personSum.text); i++)
+            int infected = Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
+            int unaffected = System.Convert.ToInt32(personSum.text) - infected;
+
+            for (int i = 0; i < unaffected; i++)
             {
                 Instantiate(personPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
             }
-
-            int infected = Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
 
             for (int i = 0; i < infected; i++)
             {
@@ -187,8 +176,6 @@ public class GameHandler : MonoBehaviour
             isGameActive = true;
             HideUi();
         }
-        
-        
     }
 
     public void HideUi()

@@ -12,18 +12,18 @@ public class RandomWalk : MonoBehaviour
     private float speed;
     private int seconds;
 
-    private Slider speedSlider;
+    private InputField speedInput;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        speedSlider = GameObject.Find("SpeedSlider").GetComponent<Slider>();
+        speedInput = GameObject.Find("SpeedInput").GetComponent<InputField>();
 
     }
 
- 
+
 
     void FixedUpdate()
     {
@@ -35,12 +35,12 @@ public class RandomWalk : MonoBehaviour
             seconds = 0;
             gameTimer = 0f;
         }
-        
+
     }
 
-     void Update()
+    void Update()
     {
-        speed = speedSlider.value;
+        speed = System.Convert.ToInt32(speedInput.text);
     }
 
     public void Move(Vector2 movementVector)
@@ -53,7 +53,7 @@ public class RandomWalk : MonoBehaviour
         float radAgnle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
         Vector2 vecRnd = new Vector2(Mathf.Cos(radAgnle), Mathf.Sin(radAgnle));
         return vecRnd;
-        
+
     }
 
 
