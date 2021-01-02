@@ -13,12 +13,15 @@ public class GameHandler : MonoBehaviour
 
     //UI
     public Text personTxt;
+
     public Text infectedPersonTxt;
     public Text recoveredPersonTxT;
     public Text timerTxT;
     public Text rndWalkTxT;
 
     public Toggle customExport;
+    public Toggle divideToggle;
+    public Toggle recoveryTogle;
 
     public InputField customFilePath;
     public InputField personSum;
@@ -36,7 +39,6 @@ public class GameHandler : MonoBehaviour
 
     //Export
     private List<string> data = new List<string>();
-
 
     private void Start()
     {
@@ -65,8 +67,6 @@ public class GameHandler : MonoBehaviour
         UpdateLabels();
         CheckForRandomWalk();
     }
-
-   
 
     private void UpdateLabels()
     {
@@ -116,8 +116,11 @@ public class GameHandler : MonoBehaviour
     {
         Time.timeScale = 0;
         isGameActive = false;
-        //export to Excel
-        if(customExport.isOn)
+    }
+
+    public void exportToCsv()
+    {
+        if (customExport.isOn)
             ExportData.exportData(data, customFilePath.text);
         else
             ExportData.exportData(data, @"Excel\report.csv");
@@ -150,9 +153,35 @@ public class GameHandler : MonoBehaviour
             isGameActive = true;
             HideUi();
             InvokeRepeating("PersonCounter", 0f, 1f);
+            if(divideToggle.isOn)
+                InvokeRepeating("moveBlocker", 2f, 1f);
         }
     }
-     void PersonCounter()
+
+    private void moveBlocker()
+    {
+        GameObject[] blocker = GameObject.FindGameObjectsWithTag("Blocker");
+
+        foreach (GameObject block in blocker)
+        {
+            if(block.transform.localScale.y > 0f)
+            {
+                block.transform.localScale -= new Vector3(0f, 2f, 0f);
+
+                if (block.name == "BlockerDown")
+                    block.transform.position -= new Vector3(0f, 1f, 0f);
+
+                if (block.name == "BlockerUp")
+                    block.transform.position += new Vector3(0f, 1f, 0f);
+            }
+           
+
+        }
+
+        
+    }
+
+    private void PersonCounter()
     {
         GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
         personCounter = 0;
@@ -183,14 +212,12 @@ public class GameHandler : MonoBehaviour
 
     public void HideUi()
     {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("invisibleWhilePlaying");
+        GameObject[] blocker = GameObject.FindGameObjectsWithTag("Blocker");
 
-        foreach (GameObject item in objects)
-        {
-            item.SetActive(false);
-        }
+        if (!divideToggle.isOn)
+            foreach (GameObject block in blocker)
+                block.SetActive(false);
     }
-
 
     public void CheckForRandomWalk()
     {

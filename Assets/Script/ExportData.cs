@@ -10,16 +10,20 @@ public class ExportData : MonoBehaviour
     {
         try
         {
-            System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath,true);
+            System.IO.StreamWriter file = new System.IO.StreamWriter(@filepath);
             foreach (String line in data)
                 file.WriteLine(line);
 
             file.Close();
+            System.Diagnostics.Process.Start(filepath);
 
         }
         catch (Exception e)
         {
             throw(e);
         }
+
+
+            
     }
 }
