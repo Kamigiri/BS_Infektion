@@ -12,13 +12,13 @@ public class GameHandler : MonoBehaviour
     public GameObject recoverdPersonPrefab;
 
     //UI
-    public Text personTxt;
-    public Text infectedPersonTxt;
-    public Text recoveredPersonTxT;
-    public Text timerTxT;
-    public Text rndWalkTxT;
-    public InputField personSum;
-    public InputField duration;
+    public  Text personTxt;
+    public  Text infectedPersonTxt;
+    public  Text recoveredPersonTxT;
+    public  Text timerTxT;
+    public  Text rndWalkTxT;
+    public  InputField personSum;
+    public  InputField duration;
     public InputField speed;
     
    
@@ -30,7 +30,7 @@ public class GameHandler : MonoBehaviour
     private bool isGameActive = false;
     private bool isGamePaused = false;
     private int seconds;
-    private int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
+    public static  int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
 
     //Export
     private List<Dictionary<string, int>> exportList = new List<Dictionary<string, int>>();
@@ -53,6 +53,7 @@ public class GameHandler : MonoBehaviour
             seconds = System.Convert.ToInt32(gameTimer % 60);
             //TODO nur jede Sekunde nicht jeden Frame
             PersonCounter();
+            GetComponent<Graph>().buildGraph(seconds);
 
             if (seconds >= System.Convert.ToInt32(duration.text))
                 EndTheGame();
