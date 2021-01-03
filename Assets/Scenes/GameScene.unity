@@ -178,7 +178,6 @@ MonoBehaviour:
   recoveredPersonTxT: {fileID: 1510001528}
   timerTxT: {fileID: 519080073}
   rndWalkTxT: {fileID: 1478573927}
-  customExport: {fileID: 0}
   divideToggle: {fileID: 1772059872}
   recoveryTogle: {fileID: 587996446}
   customFilePath: {fileID: 248804087}
@@ -869,6 +868,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 1627824328, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_TagString
+      value: Input
+      objectReference: {fileID: 0}
     - target: {fileID: 1627824330, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
       propertyPath: m_CharacterLimit
       value: 3
@@ -885,6 +888,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: Filepath mit Dateiendung
       objectReference: {fileID: 0}
+    - target: {fileID: 2056158606, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_TagString
+      value: Input
+      objectReference: {fileID: 0}
     - target: {fileID: 2056158608, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
       propertyPath: m_Text
       value: 30
@@ -893,6 +900,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Recovery
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541628513922024678, guid: ab4a3aab0694e9b4ba4d47985a274376,
+        type: 3}
+      propertyPath: m_TagString
+      value: Input
       objectReference: {fileID: 0}
     - target: {fileID: 3032466614838275588, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
@@ -917,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 3423573487166401539, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_TagString
-      value: Recovery
+      value: Input
       objectReference: {fileID: 0}
     - target: {fileID: 4173237452016908897, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}

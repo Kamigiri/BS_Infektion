@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,6 +29,8 @@ public class GameHandler : MonoBehaviour
     public InputField speed;
     public InputField recovery;
 
+    GameObject[] inputs;
+
     //GameLogic
     public bool useAlternateRndWalk = false;
 
@@ -49,10 +52,15 @@ public class GameHandler : MonoBehaviour
         data.Add("Zyklus, Gesunde_Personen, Erkrankte_Personen, Genesene_Personen");
 
         SwitchRandomWalkLabel();
+
+        inputs = GameObject.FindGameObjectsWithTag("Input");
     }
 
     private void Update()
     {
+        if (!isGameActive)
+            LimitInput();
+
         if (isGameActive && !isGamePaused)
         {
             gameTimer += Time.deltaTime;
@@ -66,6 +74,21 @@ public class GameHandler : MonoBehaviour
 
         UpdateLabels();
         CheckForRandomWalk();
+    }
+
+    private void LimitInput()
+    {
+        foreach(GameObject input in inputs)
+            if (input.GetComponent<InputField>().text.Length > 0 && input.GetComponent<InputField>().text[0] == '-')
+                input.GetComponent<InputField>().text = input.GetComponent<InputField>().text.Remove(0, 1);
+
+
+
+        if (System.Convert.ToInt32(personSum.text) > 250)
+            personSum.text = "250";
+
+        if (System.Convert.ToInt32(recovery.text) >= System.Convert.ToInt32(duration.text))
+            recovery.text = System.Convert.ToInt32(duration.text) - 1 + "";
     }
 
     private void UpdateLabels()
@@ -135,17 +158,17 @@ public class GameHandler : MonoBehaviour
     {
         if (!isGameActive)
         {
-            int infected = Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
+            int infected = UnityEngine.Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
             int unaffected = System.Convert.ToInt32(personSum.text) - infected;
 
             for (int i = 0; i < unaffected; i++)
             {
-                Instantiate(personPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
+                Instantiate(personPrefab, new Vector3(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY), 0), Quaternion.identity);
             }
 
             for (int i = 0; i < infected; i++)
             {
-                GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0), Quaternion.identity);
+                GameObject infectedPerson = Instantiate(infectedPersonPrefab, new Vector3(UnityEngine.Random.Range(minX, maxX), UnityEngine.Random.Range(minY, maxY), 0), Quaternion.identity);
                 Person person = infectedPerson.GetComponent<Person>();
                 person.infectedTime = 1;
             }
