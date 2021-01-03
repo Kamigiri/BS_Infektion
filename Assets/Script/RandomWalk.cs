@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RandomWalk : MonoBehaviour
@@ -14,33 +11,17 @@ public class RandomWalk : MonoBehaviour
 
     private InputField speedInput;
 
-
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         speedInput = GameObject.Find("SpeedInput").GetComponent<InputField>();
-
-    }
-
-
-
-    void FixedUpdate()
-    {
-        gameTimer += Time.deltaTime;
-        seconds = System.Convert.ToInt32(gameTimer % 60);
-        if (seconds >= 1)
-        {
-            Move(RandomVector());
-            seconds = 0;
-            gameTimer = 0f;
-        }
-
-    }
-
-    void Update()
-    {
         speed = System.Convert.ToInt32(speedInput.text);
+    }
+
+    private void FixedUpdate()
+    {
+        InvokeRepeating("AutoMove", 0f, 1f);
     }
 
     public void Move(Vector2 movementVector)
@@ -48,14 +29,15 @@ public class RandomWalk : MonoBehaviour
         rb2d.AddForce(movementVector * speed);
     }
 
+    private void AutoMove()
+    {
+        Move(RandomVector());
+    }
+
     private Vector2 RandomVector()
     {
         float radAgnle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
         Vector2 vecRnd = new Vector2(Mathf.Cos(radAgnle), Mathf.Sin(radAgnle));
         return vecRnd;
-
     }
-
-
-
 }
