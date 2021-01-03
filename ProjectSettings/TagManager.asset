@@ -9,6 +9,7 @@ TagManager:
   - Recovery
   - visibleEnd
   - Input
+  - Edge
   layers:
   - Default
   - TransparentFX

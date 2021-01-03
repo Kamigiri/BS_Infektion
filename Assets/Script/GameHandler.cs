@@ -32,7 +32,7 @@ public class GameHandler : MonoBehaviour
     GameObject[] inputs;
 
     //GameLogic
-    public bool useAlternateRndWalk = false;
+    public static bool useAlternateRndWalk = false;
 
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
@@ -45,10 +45,10 @@ public class GameHandler : MonoBehaviour
 
     private void Start()
     {
-        minX = -43.77f;
-        maxX = 36.44f;
-        minY = -25.69f;
-        maxY = 10.11f;
+        minX = -40f;
+        maxX = 35f;
+        minY = -24.8f;
+        maxY = 9f;
         data.Add("Zyklus, Gesunde_Personen, Erkrankte_Personen, Genesene_Personen");
 
         SwitchRandomWalkLabel();
@@ -114,6 +114,12 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    public static bool getRandomwalk()
+    {
+        return useAlternateRndWalk;
+        
+    }
+
     public void SwitchRandomWalkLabel()
     {
         if (useAlternateRndWalk)
@@ -158,7 +164,7 @@ public class GameHandler : MonoBehaviour
     {
         if (!isGameActive)
         {
-            int infected = UnityEngine.Random.Range(1, System.Convert.ToInt32(personSum.text) - 1);
+            int infected = UnityEngine.Random.Range(1, System.Convert.ToInt32(personSum.text) /2);
             int unaffected = System.Convert.ToInt32(personSum.text) - infected;
 
             for (int i = 0; i < unaffected; i++)
@@ -177,7 +183,7 @@ public class GameHandler : MonoBehaviour
             HideUi();
             InvokeRepeating("PersonCounter", 0f, 1f);
             if (divideToggle.isOn)
-                InvokeRepeating("moveBlocker", 2f, 1f);
+                InvokeRepeating("moveBlocker", 3f, 1f);
         }
     }
 
@@ -212,15 +218,18 @@ public class GameHandler : MonoBehaviour
             switch (person.name.ToString())
             {
                 case "person(Clone)":
-                    personCounter++;
+                    if(personCounter < System.Convert.ToInt32(personSum.text))
+                        personCounter++;
                     break;
 
                 case "infectedPerson(Clone)":
-                    infectedPersonCounter++;
+                    if (infectedPersonCounter < System.Convert.ToInt32(personSum.text))
+                        infectedPersonCounter++;
                     break;
 
                 case "recoveredPerson(Clone)":
-                    recoveredPersonCounter++;
+                    if (recoveredPersonCounter < System.Convert.ToInt32(personSum.text))
+                        recoveredPersonCounter++;
                     break;
             }
         }
@@ -232,10 +241,15 @@ public class GameHandler : MonoBehaviour
     public void HideUi()
     {
         GameObject[] blocker = GameObject.FindGameObjectsWithTag("Blocker");
+        GameObject[] edges = GameObject.FindGameObjectsWithTag("Edge");
 
         if (!divideToggle.isOn)
             foreach (GameObject block in blocker)
                 block.SetActive(false);
+
+        if (getRandomwalk())
+            foreach (GameObject edge in edges)
+                edge.SetActive(false);
 
         personSum.DeactivateInputField();
         duration.DeactivateInputField();
@@ -248,41 +262,6 @@ public class GameHandler : MonoBehaviour
 
     public void CheckForRandomWalk()
     {
-        if (useAlternateRndWalk)
-        {
-            personPrefab.GetComponent<RandomWalk>().enabled = false;
-            infectedPersonPrefab.GetComponent<RandomWalk>().enabled = false;
-            recoverdPersonPrefab.GetComponent<RandomWalk>().enabled = false;
-
-            personPrefab.GetComponent<boundaries>().enabled = false;
-            infectedPersonPrefab.GetComponent<boundaries>().enabled = false;
-            recoverdPersonPrefab.GetComponent<boundaries>().enabled = false;
-
-            personPrefab.GetComponent<RandomWalkv2>().enabled = true;
-            infectedPersonPrefab.GetComponent<RandomWalkv2>().enabled = true;
-            recoverdPersonPrefab.GetComponent<RandomWalkv2>().enabled = true;
-
-            personPrefab.GetComponent<boundariesv2>().enabled = true;
-            infectedPersonPrefab.GetComponent<boundariesv2>().enabled = true;
-            recoverdPersonPrefab.GetComponent<boundariesv2>().enabled = true;
-        }
-        else
-        {
-            personPrefab.GetComponent<RandomWalk>().enabled = true;
-            infectedPersonPrefab.GetComponent<RandomWalk>().enabled = true;
-            recoverdPersonPrefab.GetComponent<RandomWalk>().enabled = true;
-
-            personPrefab.GetComponent<boundaries>().enabled = true;
-            infectedPersonPrefab.GetComponent<boundaries>().enabled = true;
-            recoverdPersonPrefab.GetComponent<boundaries>().enabled = true;
-
-            personPrefab.GetComponent<RandomWalkv2>().enabled = false;
-            infectedPersonPrefab.GetComponent<RandomWalkv2>().enabled = false;
-            recoverdPersonPrefab.GetComponent<RandomWalkv2>().enabled = false;
-
-            personPrefab.GetComponent<boundariesv2>().enabled = false;
-            infectedPersonPrefab.GetComponent<boundariesv2>().enabled = false;
-            recoverdPersonPrefab.GetComponent<boundariesv2>().enabled = false;
-        }
+        
     }
 }

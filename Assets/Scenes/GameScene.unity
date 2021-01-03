@@ -185,7 +185,6 @@ MonoBehaviour:
   duration: {fileID: 2056158608}
   speed: {fileID: 1391951940}
   recovery: {fileID: 99011199}
-  useAlternateRndWalk: 0
 --- !u!4 &46848524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7225429079041303838, guid: aa9bfe3fc316dc64d9fb994bc0bd6801,
@@ -308,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9528302, g: 0.0764062, b: 0.0764062, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -571,6 +570,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blocker
       objectReference: {fileID: 0}
+    - target: {fileID: 1434063937579611257, guid: e937c98317653ee49b71fc9f05354c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Edge
+      objectReference: {fileID: 0}
     - target: {fileID: 3579619692708975072, guid: e937c98317653ee49b71fc9f05354c05,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -680,7 +684,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963732636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.46, y: -25.9, z: 3.5234375}
+  m_LocalPosition: {x: 36.61, y: 10.34, z: 3.5234375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -697,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blocker (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434063937579611257, guid: e937c98317653ee49b71fc9f05354c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Edge
       objectReference: {fileID: 0}
     - target: {fileID: 3579619692708975072, guid: e937c98317653ee49b71fc9f05354c05,
         type: 3}
@@ -939,6 +948,22 @@ PrefabInstance:
     - target: {fileID: 248804085, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 248804087, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_ContentType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 248804087, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_KeyboardType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 248804087, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 248804087, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
+      propertyPath: m_LineType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 773467264, guid: ab4a3aab0694e9b4ba4d47985a274376, type: 3}
       propertyPath: m_TagString
@@ -1220,6 +1245,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blocker
       objectReference: {fileID: 0}
+    - target: {fileID: 1434063937579611257, guid: e937c98317653ee49b71fc9f05354c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Edge
+      objectReference: {fileID: 0}
     - target: {fileID: 3579619692708975072, guid: e937c98317653ee49b71fc9f05354c05,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1304,6 +1334,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blocker (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1434063937579611257, guid: e937c98317653ee49b71fc9f05354c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Edge
       objectReference: {fileID: 0}
     - target: {fileID: 3579619692708975072, guid: e937c98317653ee49b71fc9f05354c05,
         type: 3}
