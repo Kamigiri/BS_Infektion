@@ -19,7 +19,6 @@ public class GameHandler : MonoBehaviour
     public Text timerTxT;
     public Text rndWalkTxT;
 
-    public Toggle customExport;
     public Toggle divideToggle;
     public Toggle recoveryTogle;
 
@@ -27,6 +26,7 @@ public class GameHandler : MonoBehaviour
     public InputField personSum;
     public InputField duration;
     public InputField speed;
+    public InputField recovery;
 
     //GameLogic
     public bool useAlternateRndWalk = false;
@@ -89,7 +89,6 @@ public class GameHandler : MonoBehaviour
 
             SwitchRandomWalkLabel();
         }
-           
     }
 
     public void SwitchRandomWalkLabel()
@@ -124,10 +123,7 @@ public class GameHandler : MonoBehaviour
 
     public void exportToCsv()
     {
-        if (customExport.isOn)
-            ExportData.exportData(data, customFilePath.text);
-        else
-            ExportData.exportData(data, @"Excel\report.csv");
+        ExportData.exportData(data, customFilePath.text);
     }
 
     public void StopTheGame()
@@ -157,7 +153,7 @@ public class GameHandler : MonoBehaviour
             isGameActive = true;
             HideUi();
             InvokeRepeating("PersonCounter", 0f, 1f);
-            if(divideToggle.isOn)
+            if (divideToggle.isOn)
                 InvokeRepeating("moveBlocker", 2f, 1f);
         }
     }
@@ -168,7 +164,7 @@ public class GameHandler : MonoBehaviour
 
         foreach (GameObject block in blocker)
         {
-            if(block.transform.localScale.y > 0f)
+            if (block.transform.localScale.y > 0f)
             {
                 block.transform.localScale -= new Vector3(0f, 2f, 0f);
 
@@ -178,11 +174,7 @@ public class GameHandler : MonoBehaviour
                 if (block.name == "BlockerUp")
                     block.transform.position += new Vector3(0f, 1f, 0f);
             }
-           
-
         }
-
-        
     }
 
     private void PersonCounter()
@@ -221,6 +213,14 @@ public class GameHandler : MonoBehaviour
         if (!divideToggle.isOn)
             foreach (GameObject block in blocker)
                 block.SetActive(false);
+
+        personSum.DeactivateInputField();
+        duration.DeactivateInputField();
+        speed.DeactivateInputField();
+        recovery.DeactivateInputField();
+
+        divideToggle.interactable = false;
+        recoveryTogle.interactable = false;
     }
 
     public void CheckForRandomWalk()

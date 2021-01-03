@@ -12,24 +12,21 @@ public class boundaries : MonoBehaviour
 
     void Start()
     {
-        // If you want the min max values to update if the resolution changes 
-        // set them in update else set them in Start
-
-
-        minX = -43.77f;
-        maxX = 36.44f;
-        minY = -25.69f;
-        maxY = 10.11f;
+        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x; 
+        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y; 
+        minX = -44.4f;
+        maxX = 36f;
+        minY = -25.8f;
+        maxY = 10f;
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
 
         // Get current position
         Vector3 pos = transform.position;
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.extents.x; //extents = size of width / 2
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y; //extents = size of height / 2
+        
 
         // Horizontal contraint
         if (pos.x < minX + objectWidth)
