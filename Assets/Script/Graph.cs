@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Graph : MonoBehaviour
 {
-    private float minX, minY, height, width;
+    private float minX, minY, height, width, maxY;
 
     public GameObject pixel;
     public GameObject infectedPixel;
@@ -16,10 +16,11 @@ public class Graph : MonoBehaviour
 
     private void Start()
     {
-        minX = -22.579f;
-        minY = 12.72f;
-        height = 8;
-        width = 40;
+        minX = -23.35f;
+        minY = 12.25f;
+        height = 8f;
+        maxY = 20.72f;
+        width = 40f;
 
         gameObject.tag = "Player";
 
@@ -39,7 +40,7 @@ public class Graph : MonoBehaviour
 
     public void buildGraph(int currentSecond)
     {
-        float currentPercentageX = 100f / maxDuration * currentSecond;
+        float currentPercentageX = 100f / maxDuration;
         float currentPercentagePerson = 100f / maxPerson * GameHandler.personCounter;
         float currentPercentagePersonInfected = 100f / maxPerson * GameHandler.infectedPersonCounter;
         float currentPercentagePersonRecovered = 100f / maxPerson * GameHandler.recoveredPersonCounter;
@@ -49,30 +50,30 @@ public class Graph : MonoBehaviour
 
 
         //float currentPostionX = width * (currentPercentageX / 100) + minX;
-        float currentPostionX = currentSecond * 0.5f + minX;
-
-        int numberPerson = Convert.ToInt32(height * (currentPercentagePerson / 100));
-        int numberInfectedPerson = Convert.ToInt32(height * (currentPercentagePersonInfected / 100));
-        int numberRecoveredPerson = Convert.ToInt32(height * (currentPercentagePersonRecovered / 100));
-
-        float infectedPersonY = minY;
-        float personY = infectedPersonY + (numberInfectedPerson  * 0.5f);      
-        float recoverdPersonY = personY + (personY * 0.5f);
-
-
-        createGameObject(pixel, numberPerson, currentPostionX, personY);
-        createGameObject(infectedPixel, numberInfectedPerson, currentPostionX, infectedPersonY);
-        createGameObject(recoveredPixel, numberRecoveredPerson, currentPostionX, recoverdPersonY);
-    }
-
-    public void createGameObject(GameObject theGameObject, int number, float currentPostionX, float currentPostionY)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            float position = currentPostionY + (i * 0.5f);
-            Instantiate(theGameObject, new Vector3(currentPostionX, position, 0), Quaternion.identity);
-        }
-
         
+
+        float numberInfectedPerson = height * (currentPercentagePersonInfected / 100);
+        float numberInfectedPerson2 = width * (currentPercentageX / 100);
+        float currentPostionX = currentSecond * numberInfectedPerson2 + minX;  
+
+
+        createGameObject(infectedPixel, numberInfectedPerson, numberInfectedPerson2, currentPostionX);
+
     }
+
+    public void createGameObject(GameObject theGameObject, float number, float number2, float currentPostionX)
+    {
+        if(number > 0)
+        {
+            GameObject block = Instantiate(theGameObject, new Vector3(currentPostionX, minY, 0), Quaternion.identity);
+            block.transform.localScale -= new Vector3(0f, number, 0f);
+            block.transform.position += new Vector3(0f, number / 2, 0f);
+            block.transform.localScale -= new Vector3(number2, 0f, 0f);
+            block.transform.position += new Vector3(number2 /2, 0f, 0f);
+        }
+        
+
+
+    }
+
 }

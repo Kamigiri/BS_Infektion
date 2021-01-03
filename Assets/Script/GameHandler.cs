@@ -66,7 +66,7 @@ public class GameHandler : MonoBehaviour
             gameTimer += Time.deltaTime;
             seconds = System.Convert.ToInt32(gameTimer % 60);
 
-            //GetComponent<Graph>().buildGraph(seconds);
+            
 
             if (seconds >= System.Convert.ToInt32(duration.text))
                 EndTheGame();
@@ -184,9 +184,15 @@ public class GameHandler : MonoBehaviour
             InvokeRepeating("PersonCounter", 0f, 1f);
             if (divideToggle.isOn)
                 InvokeRepeating("moveBlocker", 3f, 1f);
+
+            InvokeRepeating("Graph", 0f, 1f);
         }
     }
 
+    private void Graph()
+    {
+        GetComponent<Graph>().buildGraph(seconds);
+    }
     private void moveBlocker()
     {
         GameObject[] blocker = GameObject.FindGameObjectsWithTag("Blocker");

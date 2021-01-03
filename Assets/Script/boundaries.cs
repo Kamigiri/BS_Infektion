@@ -17,7 +17,7 @@ public class boundaries : MonoBehaviour
         maxX = 36f;
         minY = -25.5f;
         maxY = 10f;
-        push = 2f;
+        push = 1f;
     }
 
     private void Update()
