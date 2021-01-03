@@ -1,49 +1,40 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RandomWalk : MonoBehaviour
 {
     private Rigidbody2D rb2d;
-    public float accelerationTime = 0.06f;
-    private float timeLeft;
     private float speed;
 
-    private Slider speedSlider;
+    private InputField speedInput;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        speedSlider = GameObject.Find("SpeedSlider").GetComponent<Slider>();
+        speedInput = GameObject.Find("SpeedInput").GetComponent<InputField>();
+        speed = System.Convert.ToInt32(speedInput.text) * 2;
+
+
+        if (GameHandler.getRandomwalk())
+            InvokeRepeating("ClassicMove", 0f, 1f);
+        else
+            InvokeRepeating("AutoMove", 0f, 1f);
+
 
     }
-
- 
-
     void FixedUpdate()
     {
-        timeLeft -= Time.deltaTime;
-        if (timeLeft <= 0)
-        {
-            timeLeft += accelerationTime;
-            Move(RandomVector());
-
-        }
         
     }
-
-     void Update()
-    {
-        speed = speedSlider.value;
-    }
-
     public void Move(Vector2 movementVector)
     {
         rb2d.AddForce(movementVector * speed);
+    }
+
+    private void AutoMove()
+    {
+        Move(RandomVector());
     }
 
     private Vector2 RandomVector()
@@ -51,7 +42,11 @@ public class RandomWalk : MonoBehaviour
         float radAgnle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
         Vector2 vecRnd = new Vector2(Mathf.Cos(radAgnle), Mathf.Sin(radAgnle));
         return vecRnd;
-        
     }
 
+    private void ClassicMove()
+    {
+        Vector3 vec = new Vector3(1f, 0);
+        transform.position = transform.position + Quaternion.Euler(0, 0, Random.Range(0, 360)) * vec;
+    }
 }

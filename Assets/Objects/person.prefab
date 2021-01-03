@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 2051300533919983084}
   - component: {fileID: -4486249754916903170}
   - component: {fileID: 918406445279833148}
-  - component: {fileID: -8479399507054136293}
-  - component: {fileID: -7301505879203203865}
   m_Layer: 0
   m_Name: person
   m_TagString: Untagged
@@ -77,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 910db5652ede7d240b4b968926709d51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f50964ba1a5d8f4e8774b0a608faad8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,7 +117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accelerationTime: 0.06
-  obj: {fileID: 0}
 --- !u!114 &2051300533919983084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,27 +167,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.28809524
---- !u!114 &-8479399507054136293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434063937579611257}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bb2282895739ce42a73b97e0dc7c171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-7301505879203203865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434063937579611257}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2537c40b30685746b038a83954a2966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

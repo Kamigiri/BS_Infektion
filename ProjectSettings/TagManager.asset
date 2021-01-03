@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - invisibleWhilePlaying
+  - Blocker
+  - Recovery
+  - visibleEnd
+  - Input
+  - Edge
   layers:
   - Default
   - TransparentFX
