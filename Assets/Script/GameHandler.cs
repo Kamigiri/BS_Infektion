@@ -80,12 +80,16 @@ public class GameHandler : MonoBehaviour
 
     public void SwitchRandomWalk()
     {
-        if (useAlternateRndWalk)
-            useAlternateRndWalk = false;
-        else
-            useAlternateRndWalk = true;
+        if (!isGameActive && !isGamePaused)
+        {
+            if (useAlternateRndWalk)
+                useAlternateRndWalk = false;
+            else
+                useAlternateRndWalk = true;
 
-        SwitchRandomWalkLabel();
+            SwitchRandomWalkLabel();
+        }
+           
     }
 
     public void SwitchRandomWalkLabel()
