@@ -18,8 +18,8 @@ public class Graph : MonoBehaviour
     {
         minX = -23.35f;
         minY = 12.25f;
+        maxY = 20.25f;
         height = 8f;
-        maxY = 20.72f;
         width = 40f;
 
         gameObject.tag = "Player";
@@ -52,26 +52,42 @@ public class Graph : MonoBehaviour
         //float currentPostionX = width * (currentPercentageX / 100) + minX;
         
 
-        float numberInfectedPerson = height * (currentPercentagePersonInfected / 100);
-        float numberInfectedPerson2 = width * (currentPercentageX / 100);
-        float currentPostionX = currentSecond * numberInfectedPerson2 + minX;  
+        float numberInfectedPerson = height * (currentPercentagePersonInfected / 100f);
+        float numberInfectedPersonX = width * (currentPercentageX / 100f);
+        float numberInfectedPersonInverse = height - numberInfectedPerson;
+        float currentPostionX = currentSecond * numberInfectedPersonX + minX;  
 
 
-        createGameObject(infectedPixel, numberInfectedPerson, numberInfectedPerson2, currentPostionX);
+        createGameObject(infectedPixel, numberInfectedPerson, numberInfectedPersonX, numberInfectedPersonInverse, currentPostionX);
 
     }
 
-    public void createGameObject(GameObject theGameObject, float number, float number2, float currentPostionX)
+    public void createGameObject(GameObject theGameObject, float number, float numberx, float numberInverse, float currentPostionX)
     {
-        if(number > 0)
+        number = number >= 8f ? 8.5f : number;
+        if (number > 0.4f)
         {
             GameObject block = Instantiate(theGameObject, new Vector3(currentPostionX, minY, 0), Quaternion.identity);
+            
+
             block.transform.localScale -= new Vector3(0f, number, 0f);
             block.transform.position += new Vector3(0f, number / 2, 0f);
-            block.transform.localScale -= new Vector3(number2, 0f, 0f);
-            block.transform.position += new Vector3(number2 /2, 0f, 0f);
+            block.transform.localScale -= new Vector3(numberx, 0f, 0f);
+            block.transform.position += new Vector3(numberx / 2, 0f, 0f);
+            
         }
-        
+        numberInverse = numberInverse >= 7.5f ? 7.5f : numberInverse;
+        if (numberInverse > 0f)
+        {
+            
+            GameObject blockInverse = Instantiate(theGameObject, new Vector3(currentPostionX, maxY, 0), Quaternion.identity);
+            blockInverse.GetComponent<SpriteRenderer>().color = Color.white;
+            blockInverse.transform.localScale += new Vector3(0f, numberInverse, 0f);
+            blockInverse.transform.position -= new Vector3(0f, numberInverse / 2, 0f);
+            blockInverse.transform.localScale -= new Vector3(numberx, 0f, 0f);
+            blockInverse.transform.position += new Vector3(numberx / 2, 0f, 0f);
+        }
+       
 
 
     }

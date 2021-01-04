@@ -17,7 +17,7 @@ public class boundaries : MonoBehaviour
         maxX = 36f;
         minY = -25.5f;
         maxY = 10f;
-        push = 1f;
+        push = 0.05f;
     }
 
     private void Update()
@@ -30,7 +30,11 @@ public class boundaries : MonoBehaviour
         {
             pos.x = minX + objectWidth;
             if (!GameHandler.getRandomwalk())
+            {
+                transform.position = pos;
                 GetComponent<RandomWalk>().Move(new Vector2(push, 0f));
+            }
+                
 
         }
 
@@ -38,7 +42,11 @@ public class boundaries : MonoBehaviour
         {
             pos.x = maxX - objectWidth;
             if (!GameHandler.getRandomwalk())
+            {
+                transform.position = pos;
                 GetComponent<RandomWalk>().Move(new Vector2(push * -1f, 0f));
+            }
+                
         }
 
         // vertical contraint
@@ -46,16 +54,24 @@ public class boundaries : MonoBehaviour
         {
             pos.y = minY + objectHeight;
             if (!GameHandler.getRandomwalk())
+            {
+                transform.position = pos;
                 GetComponent<RandomWalk>().Move(new Vector2(0f, push));
+            }
+                
         }
         if (pos.y > maxY - objectHeight)
         {
             pos.y = maxY - objectHeight;
             if (!GameHandler.getRandomwalk())
-                GetComponent<RandomWalk>().Move(new Vector2(0f, push * -1));
+            {
+                transform.position = pos;
+                GetComponent<RandomWalk>().Move(new Vector2(0f, push * -1f));
+            }
+               
         }
 
-        // Update position
+
         if (GameHandler.getRandomwalk())
             transform.position = pos;
     }

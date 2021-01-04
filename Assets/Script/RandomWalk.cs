@@ -23,14 +23,13 @@ public class RandomWalk : MonoBehaviour
 
 
     }
-    void FixedUpdate()
-    {
-        
-    }
+
     public void Move(Vector2 movementVector)
     {
         rb2d.AddForce(movementVector * speed);
     }
+
+
 
     private void AutoMove()
     {

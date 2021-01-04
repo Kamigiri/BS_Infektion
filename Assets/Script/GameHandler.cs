@@ -29,6 +29,8 @@ public class GameHandler : MonoBehaviour
     public InputField speed;
     public InputField recovery;
 
+    public Button start;
+
     GameObject[] inputs;
 
     //GameLogic
@@ -71,7 +73,7 @@ public class GameHandler : MonoBehaviour
             if (seconds >= System.Convert.ToInt32(duration.text))
                 EndTheGame();
         }
-
+        Updater();
         UpdateLabels();
         CheckForRandomWalk();
     }
@@ -89,6 +91,9 @@ public class GameHandler : MonoBehaviour
 
         if (System.Convert.ToInt32(recovery.text) >= System.Convert.ToInt32(duration.text))
             recovery.text = System.Convert.ToInt32(duration.text) - 1 + "";
+
+        if (System.Convert.ToInt32(duration.text) >= 180)
+            duration.text = "60";
     }
 
     private void UpdateLabels()
@@ -185,7 +190,9 @@ public class GameHandler : MonoBehaviour
             if (divideToggle.isOn)
                 InvokeRepeating("moveBlocker", 3f, 1f);
 
-            InvokeRepeating("Graph", 0f, 1f);
+            InvokeRepeating("Graph", 1f, 1f);
+
+            start.interactable = false;
         }
     }
 
@@ -212,7 +219,7 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private void PersonCounter()
+    private void Updater()
     {
         GameObject[] allPersons = GameObject.FindGameObjectsWithTag("Player");
         personCounter = 0;
@@ -224,7 +231,7 @@ public class GameHandler : MonoBehaviour
             switch (person.name.ToString())
             {
                 case "person(Clone)":
-                    if(personCounter < System.Convert.ToInt32(personSum.text))
+                    if (personCounter < System.Convert.ToInt32(personSum.text))
                         personCounter++;
                     break;
 
@@ -239,6 +246,11 @@ public class GameHandler : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void PersonCounter()
+    {
+       
 
         string row = System.String.Format("{0},{1},{2},{3}", seconds + 1, personCounter, infectedPersonCounter, recoveredPersonCounter);
         data.Add(row);
