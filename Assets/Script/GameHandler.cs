@@ -65,7 +65,6 @@ public class GameHandler : MonoBehaviour
 
         Updater();
         UpdateLabels();
-        CheckForRandomWalk();
     }
 
     private void LimitInput()
@@ -258,7 +257,7 @@ public class GameHandler : MonoBehaviour
     {
        
 
-        string row = System.String.Format("{0},{1},{2},{3}", seconds + 1, personCounter, infectedPersonCounter, recoveredPersonCounter);
+        string row = System.String.Format("{0},{1},{2},{3}", seconds, personCounter, infectedPersonCounter, recoveredPersonCounter);
         data.Add(row);
     }
 
@@ -284,8 +283,4 @@ public class GameHandler : MonoBehaviour
         recoveryTogle.interactable = false;
     }
 
-    public void CheckForRandomWalk()
-    {
-        
-    }
 }
