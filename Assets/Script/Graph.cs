@@ -40,7 +40,7 @@ public class Graph : MonoBehaviour
 
     public void buildGraph(int currentSecond)
     {
-        float currentPercentageX = 100f / maxDuration;
+        float currentPercentageX = 100f / (float)maxDuration;
         float currentPercentagePerson = 100f / maxPerson * GameHandler.personCounter;
         float currentPercentagePersonInfected = 100f / maxPerson * GameHandler.infectedPersonCounter;
         float currentPercentagePersonRecovered = 100f / maxPerson * GameHandler.recoveredPersonCounter;

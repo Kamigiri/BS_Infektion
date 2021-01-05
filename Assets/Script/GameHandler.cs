@@ -39,7 +39,7 @@ public class GameHandler : MonoBehaviour
     private float minX, maxX, minY, maxY, gameTimer;
     private bool isGameActive = false;
     private bool isGamePaused = false;
-    private int seconds, second;
+    private int seconds;
     public static int personCounter = 0, infectedPersonCounter = 0, recoveredPersonCounter = 0;
 
     //Export
@@ -63,16 +63,6 @@ public class GameHandler : MonoBehaviour
         if (!isGameActive)
             LimitInput();
 
-        if (isGameActive && !isGamePaused)
-        {
-            gameTimer += Time.deltaTime;
-            seconds = System.Convert.ToInt32(gameTimer % 60);
-
-            
-
-            if (seconds >= System.Convert.ToInt32(duration.text))
-                EndTheGame();
-        }
         Updater();
         UpdateLabels();
         CheckForRandomWalk();
@@ -92,8 +82,11 @@ public class GameHandler : MonoBehaviour
         if (System.Convert.ToInt32(recovery.text) >= System.Convert.ToInt32(duration.text))
             recovery.text = System.Convert.ToInt32(duration.text) - 1 + "";
 
-        if (System.Convert.ToInt32(duration.text) >= 180)
-            duration.text = "60";
+        if (System.Convert.ToInt32(duration.text) >= 600)
+            duration.text = "600";
+
+        if (System.Convert.ToInt32(duration.text) <= 0)
+            duration.text = "1";
     }
 
     private void UpdateLabels()
@@ -185,6 +178,7 @@ public class GameHandler : MonoBehaviour
             }
             Time.timeScale = 1;
             isGameActive = true;
+            InvokeRepeating("GameTimer", 0f, 1f);
             HideUi();
             InvokeRepeating("PersonCounter", 0f, 1f);
             if (divideToggle.isOn)
@@ -192,8 +186,20 @@ public class GameHandler : MonoBehaviour
 
             InvokeRepeating("Graph", 1f, 1f);
 
+
             start.interactable = false;
         }
+    }
+
+    private void GameTimer()
+    {
+        if (isGameActive)
+        {
+            seconds++;
+            if (seconds >= System.Convert.ToInt32(duration.text))
+                EndTheGame();
+        }
+        
     }
 
     private void Graph()

@@ -711,6 +711,11 @@ PrefabInstance:
       propertyPath: m_FontData.m_MinSize
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1641246050431971245, guid: ab4a3aab0694e9b4ba4d47985a274376,
+        type: 3}
+      propertyPath: m_Text
+      value: "Personen k\xF6nnen sich von der Krankeheit erholen"
+      objectReference: {fileID: 0}
     - target: {fileID: 1760711582535117422, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -859,22 +864,22 @@ PrefabInstance:
     - target: {fileID: 3551352560264066749, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 45.14
+      value: 63.08
       objectReference: {fileID: 0}
     - target: {fileID: 3551352560264066749, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 36.480576
+      value: 62.444885
       objectReference: {fileID: 0}
     - target: {fileID: 3551352560264066749, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13.52
+      value: -18.79
       objectReference: {fileID: 0}
     - target: {fileID: 3551352560264066749, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 23.036133
+      value: 31.223099
       objectReference: {fileID: 0}
     - target: {fileID: 4173237451885065850, guid: ab4a3aab0694e9b4ba4d47985a274376,
         type: 3}
