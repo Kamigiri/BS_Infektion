@@ -1,6 +1,6 @@
 # BS_Infektion
 
-For School yo
+Berufsschul Projekt für die ITM 19-2
 
 ## Contributing
 Svenja,
